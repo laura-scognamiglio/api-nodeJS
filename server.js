@@ -4,7 +4,7 @@ const express = require("express");
 const app = express();
 
 // var corsOptions = {
-//   origin: "http://127.0.0.1:8080" 
+//   origin: "http://127.0.0.1:8000" 
 // };
 
 // app.use(cors(corsOptions));
@@ -17,12 +17,12 @@ app.use(express.urlencoded({ extended: true }));
 
 // simple route
 app.get("/", (req, res) => {
-  res.send({ message: "Welcome to my application." });
+  res.json({ message: "Welcome to my application." });
 });
 
 
 //set port, listen for requests
-const PORT = process.env.PORT || 8000;
+const PORT = process.env.PORT || 3306;
 require("./app/routes/users.routes.js")(app);
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);
