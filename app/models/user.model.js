@@ -6,6 +6,7 @@ const Users = function(users) {
   this.description = users.lastname;
   this.published = users.email;
   this.createdAt = users.createdAt
+  this.id_groupes = users.id_groupes
 };
 
 Users.create = (newUsers, result) => {
@@ -40,12 +41,8 @@ Users.create = (newUsers, result) => {
     });
   };
   
-  Users.getAll = (firstname, result) => {
+  Users.getAll = (result) => {
     let query = "SELECT * FROM users";
-  
-    if (firstname) {
-      query += ` WHERE title LIKE '%${firstname}%'`;
-    }
   
     sql.query(query, (err, res) => {
       if (err) {
@@ -59,8 +56,8 @@ Users.create = (newUsers, result) => {
     });
   };
   
-  Users.getAllPublished = result => {
-    sql.query("SELECT * FROM users WHERE published=true", (err, res) => {
+  Users.getAllByGroup = (id_groupes,result) => {
+    sql.query(`SELECT * FROM users WHERE id_groupes= ${id_groupes}`, (err, res) => {
       if (err) {
         console.log("error: ", err);
         result(null, err);
