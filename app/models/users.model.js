@@ -8,6 +8,7 @@ const Users = function(users) {
   this.description = users.lastname;
   this.published = users.email;
   this.createdAt = users.createdAt
+  this.updatedAt = users.updateddAt
   this.id_groupes = users.id_groupes
 };
 
@@ -43,20 +44,20 @@ const Users = function(users) {
 //     });
 //   };
   
-//   Users.getAll = (result) => {
-//     let query = "SELECT * FROM users";
+  Users.getAll = (result) => {
+    let query = "SELECT * FROM users";
   
-//     sql.query(query, (err, res) => {
-//       if (err) {
-//         console.log("error: ", err);
-//         result(null, err);
-//         return;
-//       }
+    sql.query(query, (err, res) => {
+      if (err) {
+        console.log("error: ", err);
+        result(null, err);
+        return;
+      }
   
-//       console.log("users: ", res);
-//       result(null, res);
-//     });
-//   };
+      console.log("users: ", res);
+      result(null, res);
+    });
+  };
   
 //   Users.getAllByGroup = (id_groupes,result) => {
 //     sql.query(`SELECT * FROM users WHERE id_groupes= ${id_groupes}`, (err, res) => {

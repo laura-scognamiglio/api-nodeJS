@@ -2,59 +2,63 @@ const Users = require("../models/users.model.js");
 // const mysql = require("mysql");
 const sql = require("../models/db");
 
-// // // Create and Save a new users
-// // exports.create = (req, res) => {
-// //     // Validate request
-// //     if (!req.body) {
-// //       res.status(400).send({
-// //         message: "Content can not be empty!"
-// //       });
-// //     }
+// Create and Save a new users
+exports.create = (req, res) => {
+    // Validate request
+    if (!req.body) {
+      res.status(400).send({
+        message: "Content can not be empty!"
+      });
+    }
   
-//     // Create a users
-//     const users = new Users({
-//       firstname: req.body.firstname,
-//       lastname: req.body.lastname,
-//       id_groupes: req.body.id_groupes,
-//       email: req.body.published || false
+    // Create a users
+    const users = new Users({
+      firstname: req.body.firstname,
+      lastname: req.body.lastname,
+      id_groupes: req.body.id_groupes,
+      email: req.body.published,
+      created_at: new Date(),
+      updated_at: new Date()
+      || false
+
+    });
+  
+    // Save users in the database
+    Users.create(users, (err, data) => {
+      if (err)
+        res.status(500).send({
+          message:
+            err.message || "Some error occurred while creating the users."
+        });
+      else res.send(data);
+    });
+};
+
+// Retrieve all users from the database (with condition).
+
+// exports.getAll = (req, res) => {
+//     const names = req.query.firstname;
+    
+//     Users.getAll(names, (err, data) => {
+//       if (err)
+//         res.status(500).send({
+//           message:
+//             err.message || "Some error occurred while retrieving users."
+//         });
+//       else res.send(data);
 //     });
+//   };
   
-// //     // Save users in the database
-// //     Users.create(users, (err, data) => {
-// //       if (err)
-// //         res.status(500).send({
-// //           message:
-// //             err.message || "Some error occurred while creating the users."
-// //         });
-// //       else res.send(data);
-// //     });
-// // };
-
-// // Retrieve all users from the database (with condition).
-
-// // exports.findAll = (req, res) => {
-// //     const names = req.query.firstname;
-// //     
-// //     Users.getAll(names, (err, data) => {
-// //       if (err)
-// //         res.status(500).send({
-// //           message:
-// //             err.message || "Some error occurred while retrieving users."
-// //         });
-// //       else res.send(data);
-// //     });
-// //   };
-  
-// // exports.findAllByGroupes = (req, res) => {
-// //     Users.getAllByGroup((err, data) => {
-// //       if (err)
-// //         res.status(500).send({
-// //           message:
-// //             err.message || "Some error occurred while retrieving users."
-// //         });
-// //       else res.send(data);
-// //     });
-// //   };
+// exports.findAllByGroupes = (req, res) => {
+//     Users.getAllByGroup((err, data) => {
+//       if (err)
+//         res.status(500).send({
+//           message:
+//             err.message || "Some error occurred while retrieving users."
+//         });
+//       else res.send(data);
+//     });
+//   };
 
 // exports.getAll = (req, res)=>{
 //     console.log("hello");
