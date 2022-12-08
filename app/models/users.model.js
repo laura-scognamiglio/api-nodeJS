@@ -1,29 +1,37 @@
-// const sql = require("./db.js");
-// const mysql = require("mysql");
+const sql = require("./db");
+// const mysql = require("mysql2");
 
 
 // // constructor
 const Users = function(users) {
-  this.title = users.firstname;
-  this.description = users.lastname;
-  this.published = users.email;
-  this.createdAt = users.createdAt
-  this.updatedAt = users.updateddAt
-  this.id_groupes = users.id_groupes
+  this.firstname = users.firstname;
+  this.lastname = users.lastname;
+  this.email = users.email;
+  // this.createdAt = users.createdAt
+  // this.updatedAt = users.updateddAt
+  // this.id_groupes = users.id_groupes
 };
 
-// Users.create = (newUsers, result) => {
-//     sql.query("INSERT INTO users SET ?", newUsers, (err, res) => {
-//       if (err) {
-//         console.log("error: ", err);
-//         result(err, null);
-//         return;
-//       }
+// INSERT INTO `users`( `firstname`, `lastname`, `email`, `createdAt`, `updatedAt`, `id_groupes`) VALUES ('riri','popo','popo@gmail.com',NOW(),NOW(),2)
+
+// INSERT INTO `users` SET ? 
+
+Users.createUser = (newUsers, result) => {
+  // let query = "INSERT INTO `users`( `firstname`, `lastname`, `email`, `createdAt`, `updatedAt`, `id_groupes`) VALUES (?,?,?,NOW(),NOW(),1)"
+  let query = "INSERT INTO `users` SET ?"
+    sql.query(query, newUsers, (err, res) => {
+      if (err) {
+        console.log("error: ", err);
+        result(err, null);
+        return;
+      }
   
-//       console.log("created users: ", { id: res.insertId, ...newUsers });
-//       result(null, { id: res.insertId, ...newUsers });
-//     });
-//   };
+      // console.log("created users: ", {...newUsers });
+      // result(null, { id: res.insertId, ...newUsers });
+    });
+  };
+
+
   
 //   Users.findById = (id, result) => {
 //     sql.query(`SELECT * FROM users WHERE id = ${id}`, (err, res) => {

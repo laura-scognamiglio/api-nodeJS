@@ -1,9 +1,9 @@
-const Users = require("../models/users.model.js");
-// const mysql = require("mysql");
+const Users = require("../models/users.model");
 const sql = require("../models/db");
 
 // Create and Save a new users
-exports.create = (req, res) => {
+module.exports = {
+    create : function (req, res){
     // Validate request
     if (!req.body) {
       res.status(400).send({
@@ -15,10 +15,10 @@ exports.create = (req, res) => {
     const users = new Users({
       firstname: req.body.firstname,
       lastname: req.body.lastname,
-      id_groupes: req.body.id_groupes,
-      email: req.body.published,
-      created_at: new Date(),
-      updated_at: new Date()
+    //   id_groupes: req.body.id_groupes,
+      email: req.body.published
+    //   created_at: req.body.Date.now(),
+    //   updated_at: req.body.Date.now()
       || false
 
     });
@@ -30,9 +30,9 @@ exports.create = (req, res) => {
           message:
             err.message || "Some error occurred while creating the users."
         });
-      else res.send(data);
+      else res.send(data, console.log(data));
     });
-};
+}}
 
 // Retrieve all users from the database (with condition).
 
@@ -69,16 +69,14 @@ exports.create = (req, res) => {
 module.exports = {
      getAll : function(req, res){
         let query = "SELECT * FROM users";
-      
         sql.query(query, (err, res) => {
           if (err) {
             console.log("error: ", err);
             result(null, err);
             return;
           }
-      
           console.log("users: ", res);
-          
+
         });
     }
 }

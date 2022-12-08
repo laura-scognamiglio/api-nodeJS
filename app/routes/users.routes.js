@@ -4,7 +4,11 @@
     const users = require("../controllers/users.controller");
   
     // Create a new users
-    // router.post("/", users.create);
+    router.post("/create",(req, res) =>{
+        const createUser = users.create();
+       
+        res.json(createUser);
+    });
   
     // Retrieve all users
     router.get("/test",   (req, res) => {
